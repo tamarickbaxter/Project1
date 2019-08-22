@@ -15,7 +15,7 @@ public class HomeController {
 	public static String Home(HttpServletRequest request, HttpServletResponse response) {
 		//retrieving the user object in our session
 		Users user = (Users) request.getSession().getAttribute("User");
-//		Users user = new FinanceManager(0,"test2","pass","Bob","Smith","bobsmith@gmail.com",1);
+		//System.out.println(user);
 
 		try {
 			//converting the object pet into JSON for JavaScript to receive

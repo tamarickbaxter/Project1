@@ -11,6 +11,7 @@ public interface FinanceManagerDao {
 	//READ
 	public Users selectUserByUserId(int id);
 	//public HashMap<String,Users> selectAllUsers();
+	public boolean userFound(String user);
 	
 	//UPDATE
 	public void updateUser(FinanceManager u);

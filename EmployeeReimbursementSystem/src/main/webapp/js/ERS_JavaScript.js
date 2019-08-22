@@ -11,6 +11,7 @@ function getUserInfo() {
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == 4 && xhttp.status == 200) {
 			let user = JSON.parse(xhttp.responseText);
+			console.log(user)
 			setValues(user);
 		}
 	}
@@ -22,6 +23,7 @@ function getUserInfo() {
 }
 
 function setValues(user){
-	document.getElementById("name").innerHTML = "Pet's name is " + user.name;
-	document.getElementById("role").innerHTML = "Pet's type is " + user.role;
+	console.log(user);
+	document.getElementById("username").innerHTML = "Username: " + user.username;
+	document.getElementById("role").innerHTML = "Role: " + user.role;
 }
