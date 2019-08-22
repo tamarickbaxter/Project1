@@ -12,7 +12,7 @@ public class Users {
 	int roleId;
 	
 	
-	Users(){
+	public Users(){
 		
 	}
 
@@ -91,19 +91,20 @@ public class Users {
 	}
 	
 	
-	public static void main(String[] args) {
-		FinanceManager m = new FinanceManager(0,"test","pass","Bob","Smith","bobsmith@gmail.com",1);
-		FinanceManagerDaoImpl fm = new FinanceManagerDaoImpl();
+//	public static void main(String[] args) {
+//		FinanceManager m = new FinanceManager(0,"test","pass","Bob","Smith","bobsmith@gmail.com",1);
+//		FinanceManagerDaoImpl fm = new FinanceManagerDaoImpl();
 //		fm.deleteUser(m);
-		fm.insertUser(m);
+//		fm.insertUser(m);
+//		FinanceManager f = (FinanceManager) fm.selectUserByUsername("test");
 //		FinanceManager t = (FinanceManager)fm.selectUserByUserId(0);
 //		System.out.println(t);
 //		FinanceManager m = new FinanceManager(0,"test2","pass","Rob","Smith","bobsmith@gmail.com",1);
 //		fm.updateUser(m);
 //		Users n = fm.selectUserByUserId(0);
-//		System.out.println(m);
-		
-	}
+//		System.out.println(f);
+//		
+//	}
 	
 
 }
