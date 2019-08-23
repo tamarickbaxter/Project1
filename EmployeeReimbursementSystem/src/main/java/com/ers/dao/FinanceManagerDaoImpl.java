@@ -107,6 +107,8 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 			e.printStackTrace();
 		}return false;		
 	}
+	
+	
 	@Override
 	public void updateUser(FinanceManager u) {
 
