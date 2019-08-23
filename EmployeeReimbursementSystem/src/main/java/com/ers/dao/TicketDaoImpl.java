@@ -50,15 +50,14 @@ public class TicketDaoImpl implements TicketDao{
 	public Ticket selectTicketByAuthor(int authorId) {
 		Ticket temp = null;
 		System.out.println("ID :"+authorId+" inselectTicketByAuthor");
-		try(Connection conn = DriverManager.getConnection(url, username, password)){	
+		try(Connection conn = DriverManager.getConnection(url, username, password)){
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM ERS_REIMBURSEMENT WHERE REIMB_AUTHOR=?"); //putting in a native SQL native query utilizing a prepared statement
 			ps.setInt(1,authorId);
-			ResultSet rs = ps.executeQuery();			
+			ResultSet rs = ps.executeQuery();	
 			while(rs.next()) {
-				System.out.println("in selectTicket connection after result: "+rs.getInt(1));
-					temp = new Ticket(rs.getInt(1),rs.getDouble(2),rs.getString(3),rs.getString(4),
-							rs.getString(5),rs.getInt(6),rs.getInt(7),rs.getInt(8),rs.getInt(9));	
-					System.out.println("Ticket: "+temp);
+				temp = new Ticket(rs.getInt(1),rs.getDouble(2),rs.getString(3),rs.getString(4),
+						rs.getString(5),rs.getInt(6),rs.getInt(7),rs.getInt(8),rs.getInt(9));	
+				System.out.println("Ticket: "+temp);
 			}
 			
 		}catch (SQLException e) {

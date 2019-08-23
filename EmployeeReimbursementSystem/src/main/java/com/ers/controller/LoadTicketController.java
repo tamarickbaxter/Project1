@@ -11,26 +11,9 @@ import com.ers.dao.TicketDaoImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class HomeController {
+public class LoadTicketController {
 
-	public static String Home(HttpServletRequest request, HttpServletResponse response) {
-		//retrieving the user object in our session
-		Users user = (Users) request.getSession().getAttribute("User");
-		//System.out.println(user);
-
-		try {
-			//converting the object pet into JSON for JavaScript to receive
-			response.getWriter().write(new ObjectMapper().writeValueAsString(user));
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
-	
-	  public static String LoadTicket(HttpServletRequest request, HttpServletResponse response) {
+	/*public static String LoadTicket(HttpServletRequest request, HttpServletResponse response) {
 		//retrieving the user object in our session
 		Users user = (Users) request.getSession().getAttribute("User");
 		TicketDaoImpl td = new TicketDaoImpl();
@@ -46,7 +29,5 @@ public class HomeController {
 		}
 		
 		return null;
-	}
-	
-	
+	}*/
 }
