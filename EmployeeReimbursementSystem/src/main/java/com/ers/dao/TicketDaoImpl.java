@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.ers.FinanceManager;
 import com.ers.Ticket;
@@ -47,41 +48,44 @@ public class TicketDaoImpl implements TicketDao{
 		return temp;
 	}
 	
-	public Ticket selectTicketByAuthor(int authorId) {
+	public ArrayList<Ticket> selectTicketByAuthor(int authorId) {
 		Ticket temp = null;
-		System.out.println("ID :"+authorId+" inselectTicketByAuthor");
+		ArrayList<Ticket> ticketList = new ArrayList<Ticket>();
+		//System.out.println("ID :"+authorId+" inselectTicketByAuthor");
 		try(Connection conn = DriverManager.getConnection(url, username, password)){
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM ERS_REIMBURSEMENT WHERE REIMB_AUTHOR=?"); //putting in a native SQL native query utilizing a prepared statement
 			ps.setInt(1,authorId);
 			ResultSet rs = ps.executeQuery();	
 			while(rs.next()) {
 				temp = new Ticket(rs.getInt(1),rs.getDouble(2),rs.getString(3),rs.getString(4),
-						rs.getString(5),rs.getInt(6),rs.getInt(7),rs.getInt(8),rs.getInt(9));	
-				System.out.println("Ticket: "+temp);
+						rs.getString(5),rs.getInt(6),rs.getInt(7),rs.getInt(8),rs.getInt(9));
+				ticketList.add(temp);
 			}
 			
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return temp;
+		return ticketList;
 	}
 
 	@Override
-	public Ticket selectTicketByStatus(int status) {
+	public ArrayList<Ticket> selectTicketByStatus(int status) {
 		Ticket temp = null;
+		ArrayList<Ticket> ticketList = new ArrayList<Ticket>();
 		try(Connection conn = DriverManager.getConnection(url, username, password)){			
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM ERS_REIMBURSEMENT WHERE REIMB_STATUS_ID=?"); //putting in a native SQL native query utilizing a prepared statement
 			ps.setInt(1,status);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 					temp = new Ticket(rs.getInt(1),rs.getDouble(2),rs.getString(3),rs.getString(4),
-							rs.getString(5),rs.getInt(6),rs.getInt(7),rs.getInt(8),rs.getInt(9));		
+							rs.getString(5),rs.getInt(6),rs.getInt(7),rs.getInt(8),rs.getInt(9));	
+					ticketList.add(temp);
 			}
 			
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return temp;
+		return ticketList;
 	}
 
 	@Override

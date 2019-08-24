@@ -3,6 +3,20 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>ERS Homepage</title>
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {background-color:#f5f5f5;}
+</style>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -11,22 +25,35 @@
 <body>
 
 
-<h1>Welcome to the Employee Reimbursement System</h1>
+	<h1>Welcome to the Employee Reimbursement System</h1>
 	<h4>Here are your current ticket information</h4>
 	<div id="name"></div>
 	<div id="role"></div>
 
-	<a href="http://localhost:8080/EmployeeReimbursementSystem/html/Ticket.html"
+	<a
+		href="http://localhost:8080/EmployeeReimbursementSystem/html/Ticket.html"
 		class="btn btn-primary">Click to Submit a Reimbursement Ticket</a>
-		
-	<table id="tickets">
-	
-	</table>
-	
+	<br />
+	<div>
+		<table id="tickets">
+			<tr class="table_headers">
+				<th>Ticket ID</th>
+				<th>Amount</th>
+				<th>Submitted</th>
+				<th>Resolved</th>
+				<th>Description</th>
+				<th>Author</th>
+				<th>Resolver</th>
+				<th>Status</th>
+				<th>Type</th>
+			</tr>
+		</table>
+	</div>
+
 	<div id="ticket_amount"></div>
 	<div id="status"></div>
-		
-		
-<script type="text/javascript" src="../js/ERS_JavaScript.js"></script>
+
+
+	<script type="text/javascript" src="../js/ERS_JavaScript.js"></script>
 </body>
 </html>

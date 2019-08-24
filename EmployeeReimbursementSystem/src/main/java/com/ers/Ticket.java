@@ -107,9 +107,11 @@ public class Ticket {
 	@Override
 	public String toString() {
 		return "Ticket [id=" + id + ", amount=" + amount + ", timestamp=" + timestamp + ", resolved=" + resolved
-				+ ", author=" + author + ", resolver=" + resolver + ", status=" + status
-				+ ", type=" + type + "]";
+				+ ", description=" + description + ", author=" + author + ", resolver=" + resolver + ", status="
+				+ status + ", type=" + type + "]";
 	}
+
+	
 	
 	
 	

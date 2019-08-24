@@ -1,5 +1,7 @@
 package com.ers.dao;
 
+import java.util.ArrayList;
+
 import com.ers.Ticket;
 
 public interface TicketDao {
@@ -10,7 +12,7 @@ public interface TicketDao {
 		//READ
 		public Ticket selectTicketById(int id);
 		//public HashMap<String,Users> selectAllUsers();
-		public Ticket selectTicketByStatus(int status);
+		public ArrayList<Ticket> selectTicketByStatus(int status);
 		
 		//UPDATE
 		public void updateTicket(Ticket t);
