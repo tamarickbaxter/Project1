@@ -22,8 +22,11 @@ public static String process(HttpServletRequest request, HttpServletResponse res
 		case "/EmployeeReimbursementSystem/html/Home.do":
 			return HomeController.Home(request, response);
 			
-		case "/EmployeeReimbursementSystem/html/LoadTicket.do":
-			return HomeController.LoadTicket(request, response);
+		case "/EmployeeReimbursementSystem/html/LoadTickets.do":
+			return HomeController.LoadTickets(request, response);
+			
+		case "/EmployeeReimbursementSystem/html/LoadPendingTickets.do":
+			return HomeController.LoadPendingTickets(request, response);
 						
 //		case "/EmployeeReimburesmentSystem/html/Submit.do":
 //			return ProfileController.Submit(request);

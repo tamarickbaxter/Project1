@@ -31,7 +31,7 @@ public class HomeController {
 		return null;
 	}
 	
-	  public static String LoadTicket(HttpServletRequest request, HttpServletResponse response) {
+	  public static String LoadTickets(HttpServletRequest request, HttpServletResponse response) {
 		//retrieving the user object in our session
 		Users user = (Users) request.getSession().getAttribute("User");
 		TicketDaoImpl td = new TicketDaoImpl();
@@ -48,6 +48,24 @@ public class HomeController {
 		
 		return null;
 	}
+	  
+	  public static String LoadPendingTickets(HttpServletRequest request, HttpServletResponse response) {
+			//retrieving the user object in our session
+			Users user = (Users) request.getSession().getAttribute("User");
+			TicketDaoImpl td = new TicketDaoImpl();
+			ArrayList<Ticket> tList = td.selectTicketByStatus(0);
+			//System.out.println("Full List: "+tList);
+			try {
+				//converting the object pet into JSON for JavaScript to receive
+				response.getWriter().write(new ObjectMapper().writeValueAsString(tList));
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			return null;
+		}
 	
 	
 }

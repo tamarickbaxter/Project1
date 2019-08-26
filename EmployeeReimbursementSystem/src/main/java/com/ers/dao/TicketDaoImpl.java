@@ -113,6 +113,44 @@ public class TicketDaoImpl implements TicketDao{
 			e.printStackTrace();
 		}
 	}
+	
+	public void approveTicket(Ticket t, Users u) {
+		
+		try(Connection conn = DriverManager.getConnection(url, username, password)){
+			
+			PreparedStatement ps = conn.prepareStatement("UPDATE ERS_REIMBURSEMENT SET REIMB_RESOLVED = CurrentTimestamp,"
+					+ "REIMB_RESOLVER =?, REIMB_STATUS_ID =? WHERE REIMB_ID=?");
+						
+			ps.setString(3, t.getResolved());
+			ps.setInt(7, u.getUserId());
+			ps.setInt(8, 1);
+			ps.setInt(10, t.getId());
+			ps.executeUpdate();
+			conn.close();
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void denyTicket(Ticket t, Users u) {
+		
+		try(Connection conn = DriverManager.getConnection(url, username, password)){
+			
+			PreparedStatement ps = conn.prepareStatement("UPDATE ERS_REIMBURSEMENT SET REIMB_RESOLVED = CurrentTimestamp,"
+					+ "REIMB_RESOLVER =?, REIMB_STATUS_ID =? WHERE REIMB_ID=?");
+						
+			ps.setString(3, t.getResolved());
+			ps.setInt(7, u.getUserId());
+			ps.setInt(8, 2);
+			ps.setInt(10, t.getId());
+			ps.executeUpdate();
+			conn.close();
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void deleteTicket(Ticket t) {
