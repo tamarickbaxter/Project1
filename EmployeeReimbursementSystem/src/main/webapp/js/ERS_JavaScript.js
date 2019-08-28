@@ -71,8 +71,20 @@ function setTicketValues(t){
 		cell5.innerHTML = t[counter].description;
 		cell6.innerHTML = t[counter].author;
 		cell7.innerHTML = t[counter].resolver;
-		cell8.innerHTML = t[counter].status;
-		cell9.innerHTML = t[counter].type;
+		if(t[counter].status==0)
+			cell8.innerHTML = "Pending";
+		else if(t[counter].status==1)
+			cell8.innerHTML = "Approved";
+		else
+			cell8.innerHTML = "Denied";
+		if(t[counter].type==0)
+			cell9.innerHTML = "Lodging";
+		else if(t[counter].type==1)
+			cell9.innerHTML = "Travel";
+		else if(t[counter].type==2)
+			cell9.innerHTML = "Food";
+		else
+			cell9.innerHTML = "Other";
 		counter++;
 	}	
 }
@@ -130,16 +142,78 @@ function displayAllPending(p){
 		let cell7 = row.insertCell(6);
 		let cell8 = row.insertCell(7);
 		let cell9 = row.insertCell(8);
+		let cell10 = row.insertCell(9);
+		let cell11 = row.insertCell(10);
 		cell1.innerHTML = p[counter].id;
+		cell1.id = 'ticketId'+counter;
 		cell2.innerHTML = p[counter].amount;
 		cell3.innerHTML = p[counter].timestamp;
 		cell4.innerHTML = p[counter].resolved;
 		cell5.innerHTML = p[counter].description;
 		cell6.innerHTML = p[counter].author;
 		cell7.innerHTML = p[counter].resolver;
-		cell8.innerHTML = p[counter].status;
-		cell9.innerHTML = p[counter].type;
+		if(p[counter].status==0)
+			cell8.innerHTML = "Pending";
+		else if(p[counter].status==1)
+			cell8.innerHTML = "Approved";
+		else
+			cell8.innerHTML = "Denied";
+		if(p[counter].type==0)
+			cell9.innerHTML = "Lodging";
+		else if(p[counter].type==1)
+			cell9.innerHTML = "Travel";
+		else if(p[counter].type==2)
+			cell9.innerHTML = "Food";
+		else
+			cell9.innerHTML = "Other";
+		cell10.innerHTML = "<button id='approve_btn"+counter+"' class='btn btn-primary'>Approve</a>";	
+		cell11.innerHTML = "<button id='deny_btn"+counter+"' class='btn btn-danger'>Deny</a>";	
+		document.getElementById('approve_btn'+counter).addEventListener("click",approve);
+		document.getElementById('deny_btn'+counter).addEventListener("click",deny);
 		counter++;
 	}
 }
 
+
+function approve(event){
+	
+	
+	let num = event.target.id.substr(event.target.id.length-1);
+	let ticket = document.getElementById('ticketId'+num);
+	let ticketId = ticket.innerHTML;
+	
+	let xhttp4 = new XMLHttpRequest();
+	xhttp4.onreadystatechange = function() {
+		if (xhttp4.readyState == 4 && xhttp4.status == 200) {
+			//let p = JSON.parse(xhttp4.responseText);
+			console.log('submitted ticket approval '+ticketId);
+		}
+	}
+
+	xhttp4.open("POST", 'http://localhost:8080/EmployeeReimbursementSystem/html/Approve.do',
+			true);
+	xhttp4.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp4.send("ticketId="+ticketId);
+	
+}
+
+function deny(event){
+	
+	let num = event.target.id.substr(event.target.id.length-1);
+	let ticket = document.getElementById('ticketId'+num);
+	let ticketId = ticket.innerHTML;
+	
+	let xhttp4 = new XMLHttpRequest();
+	xhttp4.onreadystatechange = function() {
+		if (xhttp4.readyState == 4 && xhttp4.status == 200) {
+			//let p = JSON.parse(xhttp4.responseText);
+			console.log('submitted ticket approval '+ticketId);
+		}
+	}
+	
+	xhttp4.open("POST", 'http://localhost:8080/EmployeeReimbursementSystem/html/Deny.do',
+			true);
+	xhttp4.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp4.send("ticketId="+ticketId);
+	
+}

@@ -87,6 +87,27 @@ public class TicketDaoImpl implements TicketDao{
 		}
 		return ticketList;
 	}
+	
+	public ArrayList<Ticket> selectTicketByStatus(int status, Users user) {
+		Ticket temp = null;
+		ArrayList<Ticket> ticketList = new ArrayList<Ticket>();
+		try(Connection conn = DriverManager.getConnection(url, username, password)){			
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM ERS_REIMBURSEMENT WHERE REIMB_STATUS_ID=?"); //putting in a native SQL native query utilizing a prepared statement
+			ps.setInt(1,status);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				if(user.getUserId() != rs.getInt(6)) {
+					temp = new Ticket(rs.getInt(1),rs.getDouble(2),rs.getString(3),rs.getString(4),
+							rs.getString(5),rs.getInt(6),rs.getInt(7),rs.getInt(8),rs.getInt(9));	
+					ticketList.add(temp);
+				}
+			}
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ticketList;
+	}
 
 	@Override
 	public void updateTicket(Ticket t) {
@@ -114,17 +135,16 @@ public class TicketDaoImpl implements TicketDao{
 		}
 	}
 	
-	public void approveTicket(Ticket t, Users u) {
+	public void approveTicket(int t, Users u) {
 		
 		try(Connection conn = DriverManager.getConnection(url, username, password)){
 			
-			PreparedStatement ps = conn.prepareStatement("UPDATE ERS_REIMBURSEMENT SET REIMB_RESOLVED = CurrentTimestamp,"
+			PreparedStatement ps = conn.prepareStatement("UPDATE ERS_REIMBURSEMENT SET REIMB_RESOLVED = CURRENT_TIMESTAMP,"
 					+ "REIMB_RESOLVER =?, REIMB_STATUS_ID =? WHERE REIMB_ID=?");
 						
-			ps.setString(3, t.getResolved());
-			ps.setInt(7, u.getUserId());
-			ps.setInt(8, 1);
-			ps.setInt(10, t.getId());
+			ps.setInt(1, u.getUserId());
+			ps.setInt(2, 1);
+			ps.setInt(3, t);
 			ps.executeUpdate();
 			conn.close();
 			
@@ -133,17 +153,16 @@ public class TicketDaoImpl implements TicketDao{
 		}
 	}
 	
-	public void denyTicket(Ticket t, Users u) {
+	public void denyTicket(int t, Users u) {
 		
 		try(Connection conn = DriverManager.getConnection(url, username, password)){
 			
-			PreparedStatement ps = conn.prepareStatement("UPDATE ERS_REIMBURSEMENT SET REIMB_RESOLVED = CurrentTimestamp,"
+			PreparedStatement ps = conn.prepareStatement("UPDATE ERS_REIMBURSEMENT SET REIMB_RESOLVED = CURRENT_TIMESTAMP,"
 					+ "REIMB_RESOLVER =?, REIMB_STATUS_ID =? WHERE REIMB_ID=?");
 						
-			ps.setString(3, t.getResolved());
-			ps.setInt(7, u.getUserId());
-			ps.setInt(8, 2);
-			ps.setInt(10, t.getId());
+			ps.setInt(1, u.getUserId());
+			ps.setInt(2, 2);
+			ps.setInt(3, t);
 			ps.executeUpdate();
 			conn.close();
 			

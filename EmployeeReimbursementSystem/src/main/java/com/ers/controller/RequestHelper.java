@@ -27,6 +27,12 @@ public static String process(HttpServletRequest request, HttpServletResponse res
 			
 		case "/EmployeeReimbursementSystem/html/LoadPendingTickets.do":
 			return HomeController.LoadPendingTickets(request, response);
+			
+		case "/EmployeeReimbursementSystem/html/Approve.do":
+			return HomeController.Approve(request, response);
+			
+		case "/EmployeeReimbursementSystem/html/Deny.do":
+			return HomeController.Deny(request, response);
 						
 //		case "/EmployeeReimburesmentSystem/html/Submit.do":
 //			return ProfileController.Submit(request);

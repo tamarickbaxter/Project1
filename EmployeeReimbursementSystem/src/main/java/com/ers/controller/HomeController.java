@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ers.Ticket;
 import com.ers.Users;
+import com.ers.dao.FinanceManagerDaoImpl;
 import com.ers.dao.TicketDaoImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -53,7 +54,7 @@ public class HomeController {
 			//retrieving the user object in our session
 			Users user = (Users) request.getSession().getAttribute("User");
 			TicketDaoImpl td = new TicketDaoImpl();
-			ArrayList<Ticket> tList = td.selectTicketByStatus(0);
+			ArrayList<Ticket> tList = td.selectTicketByStatus(0,user);
 			//System.out.println("Full List: "+tList);
 			try {
 				//converting the object pet into JSON for JavaScript to receive
@@ -66,6 +67,23 @@ public class HomeController {
 			
 			return null;
 		}
-	
+	  
+	  public static String Approve(HttpServletRequest request, HttpServletResponse response) {
+			
+		  	Users user = (Users) request.getSession().getAttribute("User");
+		  	int id = Integer.parseInt(request.getParameter("ticketId"));
+			TicketDaoImpl td = new TicketDaoImpl();		
+			td.approveTicket(id, user);	
+			return "/html/Home.html";
+	  }
+	  
+	  public static String Deny(HttpServletRequest request, HttpServletResponse response) {
+			
+		  	Users user = (Users) request.getSession().getAttribute("User");
+		  	int id = Integer.parseInt(request.getParameter("ticketId"));
+			TicketDaoImpl td = new TicketDaoImpl();		
+			td.denyTicket(id, user);	
+			return "/html/Home.html";
+	  }
 	
 }
