@@ -1,0 +1,21 @@
+@charset "ISO-8859-1";
+
+#legs{
+	color: orange;
+	text-align: right;
+}
+
+.headers{
+	color: green;
+	font-size: 28px;
+}
+
+body{
+	background-color: white;
+}
+
+/*
+# is for id selection
+. is for class selection
+no character is for tag name selection
+*/
